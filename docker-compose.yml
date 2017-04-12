@@ -1,0 +1,37 @@
+version: "2"
+services:
+  mysql:
+    image: mysql:5.6
+    volumes:
+      - "../persistent/mysql/usr/var/lib/mysql:/var/lib/mysql"
+      - "./mysql/my.cnf:/etc/my.cnf"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.4
+  dataserver:
+    container_name: "dataserver"
+    build: ./dataserver
+    ports:
+      - "172.13.0.1:80:80"
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.5
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+    ports:
+      - "172.13.0.1:8080:80"
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.20
+networks:
+  zotero:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.13.0.0/24
+          gateway: 172.13.0.1
