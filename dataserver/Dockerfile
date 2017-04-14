@@ -48,18 +48,18 @@ RUN apt-get update && apt-get install -y \
 
 	# Clone patched dataserver branch
 	&& cd /var/www/ \
-    && git  clone -b tmp/docker --single-branch --recursive https://github.com/mrtcode/dataserver \
-    && cd dataserver \
-    && composer install \
-    && mkdir -p tmp/cache \
-    && chmod ugo+rwx -R tmp \
+	&& git  clone -b tmp/docker --single-branch --recursive https://github.com/mrtcode/dataserver \
+	&& cd dataserver \
+	&& composer install \
+	&& mkdir -p tmp/cache \
+	&& chmod ugo+rwx -R tmp \
 
 	# Install Zend libraries to dataserver/include/Zend/
 	&& cd /tmp \
-    && wget -O zend.tar.gz https://packages.zendframework.com/releases/ZendFramework-1.12.20/ZendFramework-1.12.20.tar.gz \
-    && mkdir zend \
-    && tar -zxf zend.tar.gz -C zend --strip-components=1 \
-    && mv zend/library/Zend/* /var/www/dataserver/include/Zend/ \
+	&& wget -O zend.tar.gz https://packages.zendframework.com/releases/ZendFramework-1.12.20/ZendFramework-1.12.20.tar.gz \
+	&& mkdir zend \
+	&& tar -zxf zend.tar.gz -C zend --strip-components=1 \
+	&& mv zend/library/Zend/* /var/www/dataserver/include/Zend/ \
 
 	# Install required dependencies for the new Elastica version
 	&& cd /var/www/dataserver \
@@ -86,8 +86,8 @@ RUN apt-get update && apt-get install -y \
 
 # Temporay hack for to allow interacting with localstack
 RUN mkdir ~/.aws \
-	&& echo -e "[default]\nregion = us-east-1" > ~/.aws/config \
-	&& echo -e "[default]\naws_access_key_id = test\naws_secret_access_key = test" > ~/.aws/credentials
+	&& bash -c 'echo -e "[default]\nregion = us-east-1" > ~/.aws/config' \
+	&& bash -c 'echo -e "[default]\naws_access_key_id = test\naws_secret_access_key = test" > ~/.aws/credentials'
 
 ADD dataserver.conf  /etc/apache2/sites-available/
 RUN a2ensite dataserver
