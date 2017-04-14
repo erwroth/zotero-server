@@ -15,7 +15,7 @@ down:
 
 init-localstack-s3:
 	docker-compose exec dataserver bash -c " \
-	aws --endpoint-url "http://172.13.0.1:4572" s3 mb s3://zotero \
+	aws --endpoint-url "http://localstack:4572" s3 mb s3://zotero \
 	"
 
 init-mysql:
