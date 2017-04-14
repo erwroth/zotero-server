@@ -1,23 +1,78 @@
 version: "2"
 services:
+  localstack:
+    image: atlassianlabs/localstack
+    environment:
+      - SERVICES=s3,sns,sqs,apigateway
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.3
   mysql:
     image: mysql:5.6
     volumes:
-      - "../persistent/mysql/usr/var/lib/mysql:/var/lib/mysql"
+      - "./persistent/mysql/usr/var/lib/mysql:/var/lib/mysql"
       - "./mysql/my.cnf:/etc/my.cnf"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    ports:
+      - "172.13.0.1:3307:3306"
     networks:
       zotero:
         ipv4_address: 172.13.0.4
+  memcached:
+    image: memcached:1.4
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.5
+  redis:
+    image: redis:3.0
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.6
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.3.0
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./persistent/elasticsearch/usr/share/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.7
   dataserver:
-    container_name: "dataserver"
     build: ./dataserver
     ports:
       - "172.13.0.1:80:80"
     networks:
       zotero:
-        ipv4_address: 172.13.0.5
+        ipv4_address: 172.13.0.15
+  tinymce-clean-server:
+    build: ./tinymce-clean-server
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.8
+  stream-server:
+    build: ./stream-server
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.9
+  citeproc-node:
+    build: ./citeproc-node
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.10
   pma:
     image: phpmyadmin/phpmyadmin
     environment:

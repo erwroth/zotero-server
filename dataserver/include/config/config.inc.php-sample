@@ -20,8 +20,8 @@ class Z_CONFIG {
 	public static $API_SUPER_PASSWORD = 'b';
 	
 	public static $AWS_REGION = 'us-east-1';
-	public static $AWS_ACCESS_KEY = ''; // leave credentials empty to use IAM role
-	public static $AWS_SECRET_KEY = '';
+	public static $AWS_ACCESS_KEY = 'a'; // leave credentials empty to use IAM role
+	public static $AWS_SECRET_KEY = 'b';
 	public static $S3_BUCKET = '';
 	public static $S3_BUCKET_CACHE = '';
 	
