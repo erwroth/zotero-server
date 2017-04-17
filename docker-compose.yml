@@ -4,6 +4,10 @@ services:
     image: atlassianlabs/localstack
     environment:
       - SERVICES=s3,sns,sqs,apigateway
+    ports:
+      - "172.13.0.1:4572:4572"
+      - "172.13.0.1:4575:4575"
+      - "172.13.0.1:4576:4576"
     networks:
       zotero:
         ipv4_address: 172.13.0.3
@@ -73,6 +77,11 @@ services:
     networks:
       zotero:
         ipv4_address: 172.13.0.10
+  translation-server:
+    build: ./translation-server
+    networks:
+      zotero:
+        ipv4_address: 172.13.0.11
   pma:
     image: phpmyadmin/phpmyadmin
     environment:

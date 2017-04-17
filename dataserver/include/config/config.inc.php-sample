@@ -22,7 +22,7 @@ class Z_CONFIG {
 	public static $AWS_REGION = 'us-east-1';
 	public static $AWS_ACCESS_KEY = 'a'; // leave credentials empty to use IAM role
 	public static $AWS_SECRET_KEY = 'b';
-	public static $S3_BUCKET = '';
+	public static $S3_BUCKET = 'zotero';
 	public static $S3_BUCKET_CACHE = '';
 	
 	public static $REDIS_HOSTS = [
@@ -37,7 +37,7 @@ class Z_CONFIG {
 	);
 	
 	public static $TRANSLATION_SERVERS = array(
-		"translation1.localdomain:1969"
+		"translation-server:1969"
 	);
 	
 	public static $CITATION_SERVERS = array(
@@ -46,7 +46,7 @@ class Z_CONFIG {
 	
 	public static $SEARCH_HOSTS = ['elasticsearch'];
 	
-	public static $SNS_TOPIC_STREAM_EVENTS = 'arn:aws:sns:...';
+	public static $SNS_TOPIC_STREAM_EVENTS = 'arn:aws:sns:us-east-1:123456789012:zotero';
 	
 	public static $ATTACHMENT_SERVER_HOSTS = array("files1.localdomain", "files2.localdomain");
 	public static $ATTACHMENT_SERVER_DYNAMIC_PORT = 80;
