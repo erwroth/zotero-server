@@ -11,7 +11,7 @@ class Z_CONFIG {
 	public static $DEBUG_LOG = false;
 
     public static $BASE_URI = 'http://dataserver/';
-    public static $API_BASE_URI = 'http://dataserver/';
+    public static $API_BASE_URI = 'http://172.13.0.1/';
     public static $WWW_BASE_URI = 'http://dataserver/';
     public static $SYNC_DOMAIN = 'dataserver';
 	
