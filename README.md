@@ -126,3 +126,13 @@ var ZOTERO_CONFIG = {
 
 EXPORTED_SYMBOLS = ["ZOTERO_CONFIG"];
 ```
+
+## Tools
+
+### phpmyadmin
+
+http://172.13.0.20/
+
+### elasticsearch-head
+
+http://172.13.0.21:9100/?base_uri=http://172.13.0.7:9200

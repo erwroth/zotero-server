@@ -8,3 +8,7 @@ discovery.zen.minimum_master_nodes: 1
 
 #
 xpack.security.enabled: false
+
+# For elasticsearch-head. Shouldn't be used in production
+http.cors.enabled: true
+http.cors.allow-origin: "*"

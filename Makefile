@@ -34,9 +34,4 @@ init-elasticsearch:
 	"
 
 test:
-	docker-compose exec dataserver bash -c " \
-	cd /var/www/dataserver/tests/local \
-	&& ./phpunit tests \
-	&& cd /var/www/dataserver/tests/remote \
-	&& ./phpunit tests \
-	"
+	./test.sh

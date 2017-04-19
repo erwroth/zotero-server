@@ -89,8 +89,11 @@ RUN mkdir ~/.aws \
 	&& bash -c 'echo -e "[default]\nregion = us-east-1" > ~/.aws/config' \
 	&& bash -c 'echo -e "[default]\naws_access_key_id = test\naws_secret_access_key = test" > ~/.aws/credentials'
 
-ADD dataserver.conf  /etc/apache2/sites-available/
+ADD dataserver.conf /etc/apache2/sites-available/
 RUN a2ensite dataserver
+
+ADD gzip.conf /etc/apache2/conf-available/
+RUN a2enconf gzip
 
 COPY  include/config/config.inc.php /var/www/dataserver/include/config/config.inc.php
 COPY  include/config/dbconnect.inc.php /var/www/dataserver/include/config/dbconnect.inc.php
