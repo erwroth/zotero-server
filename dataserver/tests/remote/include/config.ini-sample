@@ -19,7 +19,7 @@ password = ""
 ; Should have libraryEditing='members'
 ownedPrivateGroupID = 0
 ownedPrivateGroupLibraryID = 0
-ownedPrivateGroupName = "Private Test Group"
+ownedPrivateGroupName = "Test Group"
 
 ; Should be in user 1's private group
 [user2]
