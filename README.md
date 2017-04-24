@@ -1,5 +1,7 @@
 # zotero-server
 
+[![Build Status](https://travis-ci.org/mrtcode/zotero-server.svg?branch=master)](https://travis-ci.org/mrtcode/zotero-server)
+
 A simple Zotero 5.0 server setup based on Docker.
 
 zotero-server uses a [special dataserver fork](https://github.com/mrtcode/dataserver/tree/tmp/docker)
