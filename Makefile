@@ -5,7 +5,7 @@ setup:
 	./setup.sh
 
 build:
-	docker-compose build --pull
+	docker-compose build
 
 up:
 	docker-compose up

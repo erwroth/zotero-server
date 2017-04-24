@@ -7,7 +7,7 @@ cache:
   timeout: 1000
   bundler: true
   directories:
-    - $HOME/docker
+    - /var/lib/docker
 
 sudo: required
 
@@ -24,15 +24,16 @@ before_install:
 #  - sudo mv docker-compose /usr/local/bin
   - docker --version
   - docker-compose --version
-  - if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
+#  - if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
   - make setup
   - make build
+  - docker rmi ‘docker images –filter ‘dangling=true’ -q –no-trunc’
+#  - mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip > $HOME/docker/$1.tar.gz'
   - sudo sysctl -w vm.max_map_count=262144
   - docker-compose up -d
   - sleep 30
   - make init-mysql
   - make init-elasticsearch
-  - mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
 
 script:
   - make test
