@@ -3,32 +3,22 @@ language: generic
 env:
   DOCKER_COMPOSE_VERSION: 1.12.0
 
-cache:
-  timeout: 1000
-  bundler: true
-  directories:
-    - /var/lib/docker
-
 sudo: required
 
 services:
   - docker
 
 before_install:
-#  - sudo apt-get update
-#  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
-#  - docker-compose --version
-#  - sudo rm /usr/local/bin/docker-compose
-#  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-#  - chmod +x docker-compose
-#  - sudo mv docker-compose /usr/local/bin
-  - docker --version
+  - sudo apt-get update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
   - docker-compose --version
-#  - if [[ -d $HOME/docker ]]; then ls $HOME/docker/*.tar.gz | xargs -I {file} sh -c "zcat {file} | docker load"; fi
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker-compose --version
   - make setup
   - make build
-  - docker rmi ‘docker images –filter ‘dangling=true’ -q –no-trunc’
-#  - mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip > $HOME/docker/$1.tar.gz'
   - sudo sysctl -w vm.max_map_count=262144
   - docker-compose up -d
   - sleep 30
