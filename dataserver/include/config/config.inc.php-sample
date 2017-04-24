@@ -10,9 +10,9 @@ class Z_CONFIG {
 
 	public static $DEBUG_LOG = false;
 
-    public static $BASE_URI = 'http://dataserver/';
+    public static $BASE_URI = 'http://zotero.org/'; //must be zotero.org for tests
     public static $API_BASE_URI = 'http://172.13.0.1/';
-    public static $WWW_BASE_URI = 'http://dataserver/';
+    public static $WWW_BASE_URI = 'http://zotero.org/'; //must be zotero.org for tests
     public static $SYNC_DOMAIN = 'dataserver';
 	
 	public static $AUTH_SALT = '';
