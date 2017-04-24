@@ -13,19 +13,19 @@ syncVersion = 9
 
 [user1]
 userID = 1
-libraryID = 0
-username = "phpunit"
-password = ""
+libraryID = 1
+username = "testuser"
+password = "letmein"
 ; Should have libraryEditing='members'
-ownedPrivateGroupID = 0
-ownedPrivateGroupLibraryID = 0
+ownedPrivateGroupID = 1
+ownedPrivateGroupLibraryID = 1
 ownedPrivateGroupName = "Test Group"
 
 ; Should be in user 1's private group
 [user2]
 userID2 = 2
-username2 = "phpunit2"
-password2 = ""
+username2 = "testuser2"
+password2 = "letmein2"
 ; User 1 should not be a member
 ownedPrivateGroupID2 = 0
 ownedPrivateGroupLibraryID2 = 0
