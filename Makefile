@@ -25,7 +25,7 @@ init-localstack-sns:
 init-mysql:
 	docker-compose exec dataserver bash -c " \
 	cd /var/www/dataserver/misc \
-	&& ./test_reset \
+	&& ./init-mysql.sh \
 	"
 init-elasticsearch:
 	docker-compose exec dataserver bash -c " \
