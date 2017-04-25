@@ -1,8 +1,8 @@
 
 .PHONY: up
 
-setup:
-	./setup.sh
+configure:
+	./scripts/configure.sh
 
 build:
 	docker-compose build
@@ -34,4 +34,4 @@ init-elasticsearch:
 	"
 
 test:
-	./test.sh
+	./tests/dataserver/remote.sh

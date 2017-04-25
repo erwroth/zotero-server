@@ -4,21 +4,25 @@ MYSQL="mysql -h mysql -P 3306 -u root"
 echo "DROP DATABASE IF EXISTS zoterotest1" | $MYSQL
 echo "DROP DATABASE IF EXISTS zoterotest2" | $MYSQL
 echo "DROP DATABASE IF EXISTS zoterotest_master" | $MYSQL
+echo "DROP DATABASE IF EXISTS zoterotest_ids" | $MYSQL
 echo "DROP DATABASE IF EXISTS zotero_www_test" | $MYSQL
 
 echo "CREATE DATABASE zoterotest_master" | $MYSQL
 echo "CREATE DATABASE zoterotest1" | $MYSQL
 echo "CREATE DATABASE zoterotest2" | $MYSQL
+echo "CREATE DATABASE zoterotest_ids" | $MYSQL
 echo "CREATE DATABASE zotero_www_test" | $MYSQL
 
 echo "DROP USER zoterotest0@localhost;" | $MYSQL
 echo "DROP USER zoterotest1@localhost;" | $MYSQL
 echo "DROP USER zoterotest2@localhost;" | $MYSQL
+echo "DROP USER zoterotest_ids@localhost;" | $MYSQL
 echo "DROP USER zoterotest_www@localhost;" | $MYSQL
 
 echo "CREATE USER zoterotest0@localhost IDENTIFIED BY 'pass0';" | $MYSQL
 echo "CREATE USER zoterotest1@localhost IDENTIFIED BY 'pass1';" | $MYSQL
 echo "CREATE USER zoterotest2@localhost IDENTIFIED BY 'pass2';" | $MYSQL
+echo "CREATE USER zoterotest_ids@localhost IDENTIFIED BY 'pass1';" | $MYSQL
 echo "CREATE USER zoterotest_www@localhost IDENTIFIED BY 'pass';" | $MYSQL
 
 echo "GRANT SELECT, INSERT, UPDATE, DELETE ON zoterotest_master.* TO zoterotest0@localhost;" | $MYSQL
@@ -27,6 +31,8 @@ echo "GRANT SELECT ON zoterotest_master.* TO zoterotest1@localhost;" | $MYSQL
 echo "GRANT SELECT ON zoterotest_master.* TO zoterotest2@localhost;" | $MYSQL
 echo "GRANT SELECT, INSERT, UPDATE, DELETE ON zoterotest1.* TO zoterotest1@localhost;" | $MYSQL
 echo "GRANT SELECT, INSERT, UPDATE, DELETE ON zoterotest2.* TO zoterotest2@localhost;" | $MYSQL
+
+echo "GRANT SELECT,INSERT,DELETE ON zoterotest_ids.* TO zoterotest_ids@localhost;" | $MYSQL
 
 echo "GRANT SELECT ON zotero_www_test.* TO zoterotest_www@localhost;" | $MYSQL
 
@@ -64,3 +70,6 @@ cat triggers.sql | $MYSQL zoterotest2
 echo "INSERT INTO shardLibraries VALUES (1, 'user', 0, 0)" | $MYSQL zoterotest1
 echo "INSERT INTO shardLibraries VALUES (2, 'user', 0, 0)" | $MYSQL zoterotest1
 echo "INSERT INTO shardLibraries VALUES (3, 'group', 0, 0)" | $MYSQL zoterotest2
+
+# Load in schema on id servers
+$MYSQL zoterotest_ids < ids.sql
