@@ -17,7 +17,7 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker-compose --version
-  - make setup
+  - make configure
   - make build
   - sudo sysctl -w vm.max_map_count=262144
   - docker-compose up -d mysql memcached redis elasticsearch tinymce-clean-server dataserver citeproc-node translation-server
