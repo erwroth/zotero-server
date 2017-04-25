@@ -21,7 +21,7 @@ before_install:
   - make build
   - sudo sysctl -w vm.max_map_count=262144
   - docker-compose up -d mysql memcached redis elasticsearch tinymce-clean-server dataserver citeproc-node translation-server
-  - sleep 30
+  - sleep 15
   - make init-mysql
   - make init-elasticsearch
 
