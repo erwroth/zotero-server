@@ -1,21 +1,21 @@
 version: "2"
 services:
-  localstack:
-    image: atlassianlabs/localstack
-    environment:
-      - SERVICES=s3,sns,sqs,apigateway
-    ports:
-      - "172.13.0.1:4572:4572"
-      - "172.13.0.1:4575:4575"
-      - "172.13.0.1:4576:4576"
-    networks:
-      zotero:
-        ipv4_address: 172.13.0.3
+#  localstack:
+#    image: atlassianlabs/localstack
+#    environment:
+#      - SERVICES=s3,sns,sqs,apigateway
+#    ports:
+#      - "172.13.0.1:4572:4572"
+#      - "172.13.0.1:4575:4575"
+#      - "172.13.0.1:4576:4576"
+#    networks:
+#      zotero:
+#        ipv4_address: 172.13.0.3
   mysql:
     image: mysql:5.6
     volumes:
       - "./persistent/mysql/usr/var/lib/mysql:/var/lib/mysql"
-      - "./mysql/my.cnf:/etc/my.cnf"
+      - "./containers/mysql/my.cnf:/etc/my.cnf"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     ports:
@@ -51,12 +51,12 @@ services:
       - IPC_LOCK
     volumes:
       - ./persistent/elasticsearch/usr/share/elasticsearch/data:/usr/share/elasticsearch/data
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./containers/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     networks:
       zotero:
         ipv4_address: 172.13.0.7
   dataserver:
-    build: ./dataserver
+    build: ./containers/dataserver
     volumes:
       - ./log/dataserver:/var/log/apache2
     ports:
@@ -65,22 +65,22 @@ services:
       zotero:
         ipv4_address: 172.13.0.15
   tinymce-clean-server:
-    build: ./tinymce-clean-server
+    build: ./containers/tinymce-clean-server
     networks:
       zotero:
         ipv4_address: 172.13.0.8
   stream-server:
-    build: ./stream-server
+    build: ./containers/stream-server
     networks:
       zotero:
         ipv4_address: 172.13.0.9
   citeproc-node:
-    build: ./citeproc-node
+    build: ./containers/citeproc-node
     networks:
       zotero:
         ipv4_address: 172.13.0.10
   translation-server:
-    build: ./translation-server
+    build: ./containers/translation-server
     networks:
       zotero:
         ipv4_address: 172.13.0.11

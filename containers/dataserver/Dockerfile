@@ -84,7 +84,7 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& rm -rf /var/www/html/*
 
-# Temporay hack for to allow interacting with localstack
+# Temporary hack to allow interacting with localstack
 RUN mkdir ~/.aws \
 	&& bash -c 'echo -e "[default]\nregion = us-east-1" > ~/.aws/config' \
 	&& bash -c 'echo -e "[default]\naws_access_key_id = test\naws_secret_access_key = test" > ~/.aws/credentials'
@@ -95,16 +95,8 @@ RUN a2ensite dataserver
 ADD gzip.conf /etc/apache2/conf-available/
 RUN a2enconf gzip
 
-COPY  include/config/config.inc.php /var/www/dataserver/include/config/config.inc.php
-COPY  include/config/dbconnect.inc.php /var/www/dataserver/include/config/dbconnect.inc.php
-COPY  tests/local/include/config.inc.php /var/www/dataserver/tests/local/include/config.inc.php
-COPY  tests/remote/include/config.ini /var/www/dataserver/tests/remote/include/config.ini
+ADD ./dataserver /var/www/dataserver
 
-COPY misc/elasticsearch/aliases.json /var/www/dataserver/misc/elasticsearch/aliases.json
-COPY misc/elasticsearch/item_fulltext/init.json /var/www/dataserver/misc/elasticsearch/item_fulltext/init.json
-#COPY misc/elasticsearch/item_fulltext/mapping.json /var/www/dataserver/misc/elasticsearch/
-COPY misc/elasticsearch/item_fulltext/settings.json /var/www/dataserver/misc/elasticsearch/item_fulltext/settings.json
-
-
+RUN chmod ugo+x /var/www/dataserver/misc/init-mysql.sh
 
 WORKDIR /var/www/dataserver

@@ -21,7 +21,7 @@ Currently there are:
 ```
 git clone https://github.com/mrtcode/zotero-server
 cd zotero-server
-make setup
+make configure
 ```
 
 Now configuration scripts are generated. Customize them and then start building:

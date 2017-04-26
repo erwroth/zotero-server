@@ -1,12 +1,11 @@
 
 .PHONY: up
 
-setup:
-	./setup.sh
+configure:
+	./scripts/configure.sh
 
 build:
 	docker-compose build
-	docker-compose pull
 
 up:
 	docker-compose up
@@ -26,7 +25,7 @@ init-localstack-sns:
 init-mysql:
 	docker-compose exec dataserver bash -c " \
 	cd /var/www/dataserver/misc \
-	&& ./test_reset \
+	&& ./init-mysql.sh \
 	"
 init-elasticsearch:
 	docker-compose exec dataserver bash -c " \
@@ -35,4 +34,4 @@ init-elasticsearch:
 	"
 
 test:
-	./test.sh
+	./tests/dataserver/remote.sh
