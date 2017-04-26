@@ -38,7 +38,7 @@ function Zotero_dbConnectAuth($db) {
 		$user = 'root';
 		$pass = '';
 	}
-	else if ($db == 'zotero_www_test') {
+	else if ($db == 'www1') {
 		$host = 'mysql';
 		$port = 3306;
 		$db = 'zotero_www_test';
@@ -48,7 +48,7 @@ function Zotero_dbConnectAuth($db) {
 	else if ($db == 'www2') {
 		$host = 'mysql';
 		$port = 3306;
-		$db = 'www2';
+		$db = 'zotero_www_test';
 		$user = 'root';
 		$pass = '';
 	}
