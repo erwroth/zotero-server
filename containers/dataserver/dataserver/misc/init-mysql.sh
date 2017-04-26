@@ -57,9 +57,9 @@ $MYSQL zotero_www_test < www.sql
 
 # b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3 equals to 'letmein'
 echo "INSERT INTO users VALUES (1, 'testuser', 'b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3')" | $MYSQL zotero_www_test
-echo "INSERT INTO users_email (id, userID, institutionID, email) VALUES (0, 1, 'test@test.com')" | $MYSQL zotero_www_test
+echo "INSERT INTO users_email (userID, email) VALUES (1, 'test@test.com')" | $MYSQL zotero_www_test
 echo "INSERT INTO storage_institutions (institutionID, domain, storageQuota) VALUES (1, 'test.com', 300)" | $MYSQL zotero_www_test
-echo "INSERT INTO storage_institution_email (id, email) VALUES (1, 'test@test.com')" | $MYSQL zotero_www_test
+echo "INSERT INTO storage_institution_email (institutionID, email) VALUES (1, 'test@test.com')" | $MYSQL zotero_www_test
 
 # Load in shard schema
 cat shard.sql | $MYSQL zoterotest1
