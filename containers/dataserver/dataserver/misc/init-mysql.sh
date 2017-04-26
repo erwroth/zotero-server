@@ -1,4 +1,5 @@
 #!/bin/sh
+
 MYSQL="mysql -h mysql -P 3306 -u root"
 
 echo "DROP DATABASE IF EXISTS zoterotest1" | $MYSQL
@@ -26,14 +27,11 @@ echo "CREATE USER zoterotest_ids@localhost IDENTIFIED BY 'pass1';" | $MYSQL
 echo "CREATE USER zoterotest_www@localhost IDENTIFIED BY 'pass';" | $MYSQL
 
 echo "GRANT SELECT, INSERT, UPDATE, DELETE ON zoterotest_master.* TO zoterotest0@localhost;" | $MYSQL
-
 echo "GRANT SELECT ON zoterotest_master.* TO zoterotest1@localhost;" | $MYSQL
 echo "GRANT SELECT ON zoterotest_master.* TO zoterotest2@localhost;" | $MYSQL
 echo "GRANT SELECT, INSERT, UPDATE, DELETE ON zoterotest1.* TO zoterotest1@localhost;" | $MYSQL
 echo "GRANT SELECT, INSERT, UPDATE, DELETE ON zoterotest2.* TO zoterotest2@localhost;" | $MYSQL
-
-echo "GRANT SELECT,INSERT,DELETE ON zoterotest_ids.* TO zoterotest_ids@localhost;" | $MYSQL
-
+echo "GRANT SELECT, INSERT, DELETE ON zoterotest_ids.* TO zoterotest_ids@localhost;" | $MYSQL
 echo "GRANT SELECT ON zotero_www_test.* TO zoterotest_www@localhost;" | $MYSQL
 
 # Load in master schema
@@ -57,9 +55,11 @@ echo "INSERT INTO groupUsers VALUES (1, 1, 'owner', '0000-00-00 00:00:00', '0000
 # Load in www schema
 $MYSQL zotero_www_test < www.sql
 
-# Set up sample users
-echo "DELETE FROM users" | $MYSQL zotero_www_test
+# b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3 equals to 'letmein'
 echo "INSERT INTO users VALUES (1, 'testuser', 'b7a875fc1ea228b9061041b7cec4bd3c52ab3ce3')" | $MYSQL zotero_www_test
+echo "INSERT INTO users_email (id, userID, institutionID, email) VALUES (0, 1, 'test@test.com')" | $MYSQL zotero_www_test
+echo "INSERT INTO storage_institutions (institutionID, domain, storageQuota) VALUES (1, 'test.com', 300)" | $MYSQL zotero_www_test
+echo "INSERT INTO storage_institution_email (id, email) VALUES (1, 'test@test.com')" | $MYSQL zotero_www_test
 
 # Load in shard schema
 cat shard.sql | $MYSQL zoterotest1
