@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y \
 
 	# Clone patched dataserver branch
 	&& cd /var/www/ \
-	&& git  clone -b tmp/docker --single-branch --recursive https://github.com/mrtcode/dataserver \
+	&& git  clone -b master --single-branch --recursive https://github.com/zotero/dataserver \
 	&& cd dataserver \
 	&& composer install \
 	&& mkdir -p tmp/cache \
