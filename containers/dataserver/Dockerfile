@@ -1,6 +1,6 @@
-FROM php:5.6-apache
+FROM php:7.1-apache
 
-ENV MEMCACHED_VERSION 2.2.0
+ENV MEMCACHED_VERSION 3.0.3
 
 # Set up PHP and extensions
 RUN apt-get update && apt-get install -y \
@@ -48,7 +48,7 @@ RUN apt-get update && apt-get install -y \
 
 	# Clone patched dataserver branch
 	&& cd /var/www/ \
-	&& git  clone -b tmp/docker --single-branch --recursive https://github.com/mrtcode/dataserver \
+	&& git  clone -b docker-php7 --single-branch --recursive https://github.com/mrtcode/dataserver \
 	&& cd dataserver \
 	&& composer install \
 	&& mkdir -p tmp/cache \
