@@ -1,16 +1,5 @@
 version: "2"
 services:
-#  localstack:
-#    image: atlassianlabs/localstack
-#    environment:
-#      - SERVICES=s3,sns,sqs,apigateway
-#    ports:
-#      - "172.13.0.1:4572:4572"
-#      - "172.13.0.1:4575:4575"
-#      - "172.13.0.1:4576:4576"
-#    networks:
-#      zotero:
-#        ipv4_address: 172.13.0.3
   mysql:
     image: mysql:5.6
     volumes:
@@ -18,8 +7,6 @@ services:
       - "./containers/mysql/my.cnf:/etc/my.cnf"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
-    ports:
-      - "172.13.0.1:3307:3306"
     networks:
       zotero:
         ipv4_address: 172.13.0.4
@@ -39,6 +26,10 @@ services:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+      # For elasticsearch-head. Shouldn't be used in production
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
     ulimits:
       memlock:
         soft: -1
@@ -51,7 +42,6 @@ services:
       - IPC_LOCK
     volumes:
       - ./persistent/elasticsearch/usr/share/elasticsearch/data:/usr/share/elasticsearch/data
-      - ./containers/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     networks:
       zotero:
         ipv4_address: 172.13.0.7
@@ -60,7 +50,7 @@ services:
     volumes:
       - ./log/dataserver:/var/log/apache2
     ports:
-      - "172.13.0.1:80:80"
+      - "127.0.0.1:80:80"
     networks:
       zotero:
         ipv4_address: 172.13.0.15
@@ -90,14 +80,14 @@ services:
       - PMA_HOST=mysql
       - PMA_USER=root
     ports:
-      - "172.13.0.1:8080:80"
+      - "127.0.0.1:8080:80"
     networks:
       zotero:
         ipv4_address: 172.13.0.20
   elasticsearch-head:
     image: mobz/elasticsearch-head:5
     ports:
-      - "172.13.0.1:9100:9100"
+      - "127.0.0.1:9100:9100"
     networks:
       zotero:
         ipv4_address: 172.13.0.21
