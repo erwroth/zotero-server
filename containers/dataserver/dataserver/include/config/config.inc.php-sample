@@ -11,7 +11,7 @@ class Z_CONFIG {
 	public static $DEBUG_LOG = false;
 
     public static $BASE_URI = 'http://zotero.org/'; // Must be zotero.org for tests
-    public static $API_BASE_URI = 'http://localhost/';
+    public static $API_BASE_URI = 'http://dataserver/';
     public static $WWW_BASE_URI = 'http://zotero.org/'; // Must be zotero.org for tests
     public static $SYNC_DOMAIN = '_';
 	
