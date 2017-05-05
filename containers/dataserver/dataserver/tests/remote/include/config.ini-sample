@@ -1,7 +1,7 @@
 ; 0 => off, 1 => HTTP requests, 2 => HTTP request/response bodies
 verbose = 0
-syncURLPrefix = "http://dataserver/"
-apiURLPrefix = "http://172.13.0.15/"
+syncURLPrefix = ""
+apiURLPrefix = "http://dataserver/"
 rootUsername = "a"
 rootPassword = "b"
 awsRegion = "us-east-1"
