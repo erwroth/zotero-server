@@ -10,10 +10,10 @@ class Z_CONFIG {
 
 	public static $DEBUG_LOG = false;
 
-    public static $BASE_URI = 'http://zotero.org/'; //must be zotero.org for tests
-    public static $API_BASE_URI = 'http://172.13.0.1/';
-    public static $WWW_BASE_URI = 'http://zotero.org/'; //must be zotero.org for tests
-    public static $SYNC_DOMAIN = 'dataserver';
+    public static $BASE_URI = 'http://zotero.org/'; // Must be zotero.org for tests
+    public static $API_BASE_URI = 'http://localhost/';
+    public static $WWW_BASE_URI = 'http://zotero.org/'; // Must be zotero.org for tests
+    public static $SYNC_DOMAIN = '_';
 	
 	public static $AUTH_SALT = '';
 	public static $API_SUPER_USERNAME = 'a';
