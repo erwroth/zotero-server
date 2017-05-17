@@ -1,6 +1,7 @@
 FROM php:5.6-apache
 
 ENV MEMCACHED_VERSION 2.2.0
+ENV REDIS_VERSION 3.1.2
 
 # Set up PHP and extensions
 RUN apt-get update && apt-get install -y \
@@ -32,12 +33,20 @@ RUN apt-get update && apt-get install -y \
 	&& make \
 	&& make install \
 
+	&& pecl download redis-$REDIS_VERSION \
+    && tar xzvf redis-$REDIS_VERSION.tgz \
+    && cd redis-$REDIS_VERSION \
+    && phpize \
+    && ./configure --enable-redis-igbinary \
+    && make \
+    && make install \
+
 	# Install intl ext
 	&& docker-php-ext-configure intl \
 	&& docker-php-ext-install intl \
 
 	# Enable extensions
-	&& docker-php-ext-enable intl igbinary memcached \
+	&& docker-php-ext-enable intl igbinary memcached redis \
 
 	&& docker-php-ext-install zip \
 

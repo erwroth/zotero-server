@@ -50,7 +50,7 @@ services:
     volumes:
       - ./log/dataserver:/var/log/apache2
     ports:
-      - "127.0.0.1:80:80"
+      - "localhost:80:80"
     networks:
       zotero:
         ipv4_address: 172.13.0.15
@@ -80,14 +80,14 @@ services:
       - PMA_HOST=mysql
       - PMA_USER=root
     ports:
-      - "127.0.0.1:8080:80"
+      - "localhost:8080:80"
     networks:
       zotero:
         ipv4_address: 172.13.0.20
   elasticsearch-head:
     image: mobz/elasticsearch-head:5
     ports:
-      - "127.0.0.1:9100:9100"
+      - "localhost:9100:9100"
     networks:
       zotero:
         ipv4_address: 172.13.0.21
